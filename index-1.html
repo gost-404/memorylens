@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MemoryLens</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+      color: #172033;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    h1 { margin-bottom: 8px; font-size: 42px; }
+    header p { color: #667085; }
+    .search {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 15px;
+      border: 1px solid #d0d5dd;
+      border-radius: 12px;
+      font-size: 16px;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #172033;
+      color: white;
+    }
+    .upload {
+      background: white;
+      border: 2px dashed #98a2b3;
+      border-radius: 16px;
+      padding: 35px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .upload input { margin-top: 15px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.06);
+    }
+    .card h3 { margin-top: 0; }
+    .tag {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      background: #eef2ff;
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    #message {
+      text-align: center;
+      color: #667085;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <header>
+      <h1>🧠 MemoryLens</h1>
+      <p>Find what you forgot.</p>
+    </header>
+
+    <div class="search">
+      <input id="searchBox" type="text"
+        placeholder="Ask: Find my Lagrange notes...">
+      <button onclick="searchMemory()">Search</button>
+    </div>
+
+    <div class="upload">
+      <h2>📂 Add your memories</h2>
+      <p>Upload notes, PDFs, screenshots or other study files.</p>
+      <input id="fileInput" type="file" multiple>
+      <p id="message">No files uploaded yet.</p>
+    </div>
+
+    <div class="cards" id="results">
+      <div class="card">
+        <h3>📐 Lagrange Notes</h3>
+        <p>Lecture notes about maximum and minimum values.</p>
+        <span class="tag">Math</span>
+      </div>
+
+      <div class="card">
+        <h3>💻 C++ Pointers</h3>
+        <p>Study material covering pointers and memory.</p>
+        <span class="tag">Programming</span>
+      </div>
+
+      <div class="card">
+        <h3>🧪 Water Pollution</h3>
+        <p>Chemistry assignment and presentation material.</p>
+        <span class="tag">Chemistry</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const message = document.getElementById("message");
+
+    fileInput.addEventListener("change", () => {
+      const count = fileInput.files.length;
+      message.textContent = count
+        ? `${count} file(s) selected. AI processing will be connected later.`
+        : "No files uploaded yet.";
+    });
+
+    function searchMemory() {
+      const query = document.getElementById("searchBox").value.trim();
+
+      if (!query) {
+        document.getElementById("message").textContent =
+          "Type something to search your memory.";
+        return;
+      }
+
+      document.getElementById("message").textContent =
+        `Searching MemoryLens for: "${query}"`;
+    }
+  </script>
+</body>
+</html>
